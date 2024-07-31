@@ -53,3 +53,19 @@ input {
 #buttons {
 	margin-top: 0;
 }
+@media (max-width: 768px) {
+    body {
+        width: auto;
+        padding: 0 1em;
+    }
+    select {
+        width: 100%;
+    }
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    ul li {
+        display: block;
+    }
+}
