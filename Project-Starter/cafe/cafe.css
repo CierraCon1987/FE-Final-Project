@@ -86,23 +86,4 @@ input {
 
 #buttons {
 	margin-top: 0;
-<<<<<<< HEAD
-}
-@media (max-width: 768px) {
-    body {
-        width: auto;
-        padding: 0 1em;
-    }
-    select {
-        width: 100%;
-    }
-    input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    ul li {
-        display: block;
-    }
-=======
->>>>>>> 64a2dd74923cdfb099517db6a7f2f889120ffcb6
 }
