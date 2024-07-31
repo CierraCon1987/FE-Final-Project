@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     //for preload images to browser
     const preloadImages= [
-        "images/exoresso_info.jpg",
+        "images/espresso_info.jpg",
         "images/latte_info.jpg",
         "images/cappuccino_info.jpg",
         "images/coffee_info.jpg",
