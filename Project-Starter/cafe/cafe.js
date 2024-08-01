@@ -1,31 +1,29 @@
-"use strict";
+$(document).ready(function(){
 
-$(document).ready(() => {
-    // Cafe Item Info
-    const items = {
-        Espresso: { name: 'Espresso', price: 3.00},
-        Latte: { name: 'Latte', price: 3.50},
-        Cappuccino: { name: 'Cappuccino', price: 3.45},
-        Coffee: { name: 'Coffee', price: 2.50},
-        Biscotti: { name: 'Biscotti', price: 3.25},
-        Scone: { name: 'Scone', price: 2.95}
-    };
+    //for preload images to browser
+    const preloadImages= [
+        "images/espresso_info.jpg",
+        "images/latte_info.jpg",
+        "images/cappuccino_info.jpg",
+        "images/coffee_info.jpg",
+        "images/biscotti_info.jpg",
+        "images/scone_info.jpg"
+    ];
 
-    // User click - adds item to menu
-    let total = 0;
-
-    function addItem(name, price) {
-        const orderList = document.getElementById('order');
-        const listItem = document.createElement('li'); //show items as list
-        listItem.textContent = '${name} - $${price.toFixed(2)}';
-        orderList.appendChild(listItem);
-
-        total += price;
-        document.getElementById('totalAmount').textContent = total.toFixed(2);
-    }
-
-    // Place Order to Check Out 
-    function placeOrder() {
-        window.location.href = "checkout.html";
-    }
-})
+    $.each(preloadImages,function (index,src) {
+        $('<img/>').attr('src',src);
+    });
+    //to add rollover images effect
+    $("ul li img").hover(
+        function() {
+            const infoImageSrc = $(this).attr("id");
+            const originalSrc= $ (this).attr("src");
+            $(this).data("original-src",originalSrc);
+            $(this).attr("src", infoImageSrc);
+        },
+        function(){
+            const originalSrc=$(this).data("original-src");
+            $(this).attr("src" , originalSrc);
+        }
+        );
+});
