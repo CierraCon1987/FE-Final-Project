@@ -29,50 +29,50 @@ $(document).ready(function () {
     );
 });
 
-//to add cafe item to order list
-document.addEventListener('DOMContentLoaded', function () {
+    //to add cafe item to order list
+    document.addEventListener('DOMContentLoaded', function () {
 
-    let items = []
-    let total = 0;
+        let items = [] /* items array */
+        let total = 0;
 
-    const orderList = document.getElementById('orderList');
-    const orderTotal = document.getElementById('orderTotal');
-    const menuList = document.getElementById('menuList');
+        const orderList = document.getElementById('orderList');
+        const orderTotal = document.getElementById('orderTotal');
+        const menuList = document.getElementById('menuList');
 
-    menuList.addEventListener('click', function (event) {
+        menuList.addEventListener('click', function (event) {
 
-        if (event.target.tagName === 'IMG') {
+            if (event.target.tagName === 'IMG') {
 
-            const name = event.target.getAttribute('item-name');
-            const price = parseFloat(event.target.getAttribute('item-price'));
+                const name = event.target.getAttribute('item-name');
+                const price = parseFloat(event.target.getAttribute('item-price'));
 
-            items.push(`${name}: $${price.toFixed(2)}`);
-            total += price;
+                items.push(`${name}: $${price.toFixed(2)}`);
+                total += price;
 
-            orderList.value = items.join('\n');
-            orderTotal.textContent = `Total: $${total.toFixed(2)}`;
+                orderList.value = items.join('\n');
+                orderTotal.textContent = `Total: $${total.toFixed(2)}`;
+            }
+        });
+
+        //to have page go to checkout
+        function placeOrder() {
+            window.location.href = 'checkout.html';
         }
+
+        $('#place_order').click(function () {
+            placeOrder();
+        }); /* jquery part */
+
+        //to clear the order list and total
+        function clearOrder() {
+            items = [];
+            total = 0;
+
+            orderList.value = '';
+            orderTotal.textContent = 'Total: $0.00';
+        }
+
+        $('#clear_order').click(function () {
+            clearOrder();
+        });
     });
-
-    //to have page go to checkout
-    function placeOrder() {
-        window.location.href = 'checkout.html';
-    }
-
-    $('#place_order').click(function () {
-        placeOrder();
-    });
-
-    //to clear the order list
-    function clearOrder() {
-        items = [];
-        total = 0;
-
-        orderList.value = '';
-        orderTotal.textContent = 'Total: $0.00';
-    }
-
-    $('#clear_order').click(function () {
-        clearOrder();
-    });
-});

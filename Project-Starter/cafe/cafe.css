@@ -12,7 +12,7 @@ body {
 
 header {
 	text-align: center;
-	border-bottom: 3px solid aqua;
+	border-bottom: 3px solid #af9467;
 }
 
 nav ul {
@@ -90,11 +90,13 @@ ul {
 ul li {
 	display: inline;
 	padding: 5px 0 5px 0;
+	transition: transform 0.3s ease;
 }
 
-#total {
+#orderTotal {
 	margin-top: .5em;
 	margin-bottom: .7em;
+	text-align: right;
 }
 
 input {
@@ -103,8 +105,7 @@ input {
 }
 
 #buttons {
-	margin-top: 0;
-	align-items: center;
+	margin-top: 20px;
 }
 
 #menuList {
