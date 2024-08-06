@@ -55,12 +55,30 @@ select {
 
 #menu h2 {
 	padding-top: 1em;
+	text-align: center;
 
 }
 
 #menu p {
 	margin-top: 0;
 	margin-bottom: .7em;
+	text-align: center;
+}
+
+#order h2 {
+	text-align: left;
+	padding-top: 50px;
+}
+
+#total {
+	text-align: right;
+	padding: 50 0 50 0;
+}
+
+#orderList {
+	width: 100%;
+	height: 150px;
+	box-sizing: border-box;
 }
 
 ul {
@@ -86,4 +104,9 @@ input {
 
 #buttons {
 	margin-top: 0;
+	align-items: center;
+}
+
+#menuList {
+	cursor: pointer;
 }
