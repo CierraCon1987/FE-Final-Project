@@ -1,4 +1,18 @@
-$(document).ready(function () {
+//Local Storage Info
+const setLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+const getLocalStorage = key => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+};
+
+const removeLocalStorage = key => {
+    localStorage.removeItem(key);
+};
+
+$(document).ready(() => {
 
     //for preload images to browser
     const preloadImages = [
@@ -14,6 +28,7 @@ $(document).ready(function () {
         $('<img/>').attr('src', src);
     });
 
+
     //to add rollover images effect
     $("ul li img").hover(
         function () {
@@ -27,52 +42,73 @@ $(document).ready(function () {
             $(this).attr("src", originalSrc);
         }
     );
-});
 
-    //to add cafe item to order list
-    document.addEventListener('DOMContentLoaded', function () {
+    //Add cafe item to Order
+    /*$("#add_order").click(() => {
+        const textbox = $("#order");
+        const order = textbox.val();
+        if (order === "") {
+            alert("Please use the images above to create your order!");
+            textbox.focus();
+        } else {
+            let currentOrder = getCookieByName("order");
+            currentOrder = currentOrder.concat(order, "\n");
+            updateOrderCookie(currentOrder);
 
-        let items = [] /* items array */
-        let total = 0;
-
-        const orderList = document.getElementById('orderList');
-        const orderTotal = document.getElementById('orderTotal');
-        const menuList = document.getElementById('menuList');
-
-        menuList.addEventListener('click', function (event) {
-
-            if (event.target.tagName === 'IMG') {
-
-                const name = event.target.getAttribute('item-name');
-                const price = parseFloat(event.target.getAttribute('item-price'));
-
-                items.push(`${name}: $${price.toFixed(2)}`);
-                total += price;
-
-                orderList.value = items.join('\n');
-                orderTotal.textContent = `Total: $${total.toFixed(2)}`;
-            }
-        });
-
-        //to have page go to checkout
-        function placeOrder() {
-            window.location.href = 'checkout.html';
+            textbox.val("");
+            $("#order_list").val(getCookieByName("order"));
+            textbox.focus();
         }
-
-        $('#place_order').click(function () {
-            placeOrder();
-        }); /* jquery part */
-
-        //to clear the order list and total
-        function clearOrder() {
-            items = [];
-            total = 0;
-
-            orderList.value = '';
-            orderTotal.textContent = 'Total: $0.00';
-        }
-
-        $('#clear_order').click(function () {
-            clearOrder();
-        });
     });
+
+//to add cafe item to order list
+/*document.addEventListener('DOMContentLoaded', function () {*/
+
+    let items = getLocalStorage('order') || [];
+    let total = getLocalStorage('total') || 0;
+
+    const orderList = document.getElementById('orderList');
+    const orderTotal = document.getElementById('orderTotal');
+    const menuList = document.getElementById('menuList');
+
+    //display saved order - local storage
+
+    if (items.length > 0) {
+        orderList.value = items.join('\n');
+        orderTotal.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    menuList.addEventListener('click', function (event) {
+        if (event.target.tagName === 'IMG') {
+
+            const name = event.target.getAttribute('item-name');
+            const price = parseFloat(event.target.getAttribute('item-price'));
+
+            items.push(`${name}: $${price.toFixed(2)}`);
+            total += price;
+
+            orderList.value = items.join('\n');
+            orderTotal.textContent = `Total: $${total.toFixed(2)}`;
+
+            setLocalStorage('order', items);
+            setLocalStorage('total', total);
+        }
+    });
+
+    //to clear the order list and total
+    $('#clear_order').click(function () {
+        items = [];
+        total = 0;
+
+        orderList.value = '';
+        orderTotal.textContent = 'Total: $0.00';
+
+        removeLocalStorage('order');
+        removeLocalStorage('total');
+    });
+
+    //Place Order 
+    $('#place_order').click(function () {
+        window.location.href = 'checkout.html';
+    }); /* jquery part */
+}); 
