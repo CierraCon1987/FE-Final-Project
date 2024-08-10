@@ -4,7 +4,7 @@ body {
 	background-color: white;
 	width: 465px;
 	margin: 0 auto;
-	border: 3px solid black;
+	border: 3px solid #fbbc0b;
 	border-radius: 25px;
 	/*    box-shadow: 5px 5px 0 0 aqua;*/
 	padding: 0 2em 1em;
@@ -90,7 +90,6 @@ ul {
 ul li {
 	display: inline;
 	padding: 5px 0 5px 0;
-	transition: transform 0.3s ease;
 }
 
 #orderTotal {
