@@ -96,16 +96,14 @@ $(document).ready(() => {
     });
 
     //Place Order Button and Checkout
-    $('#place_order').click(function (event) {
-
-        event.preventDefault();
+    $('#place_order').click(function () {
 
         if (items.length === 0) {
-            alert("Please add items to your order before placeing it.");
+            alert("Please add items to your order before placing it.");
         } else {
-            localStorage.setItem('orderItems',JSON.stringify(items.map(item =>{
+            localStorage.setItem('orderItems', JSON.stringify(items.map(item => {
                 const [name, price] = item.split(': $');
-                return { name,price: parseFloat(price) };
+                return { name, price: parseFloat(price) };
             })));
         localStorage.setItem('orderTotal', total.toFixed(2));
         removeLocalStorage('order');

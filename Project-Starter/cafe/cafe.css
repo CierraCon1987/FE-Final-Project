@@ -139,6 +139,7 @@ ul li img {
     border-radius: 5px;
     max-width: 100%;
     height: auto;
+    cursor: pointer;
 }
 
 ul li:hover {
@@ -168,6 +169,7 @@ input:hover {
     margin-top: 20px;
     text-align: center;
 }
+
 
 form {
     padding: 20px;
