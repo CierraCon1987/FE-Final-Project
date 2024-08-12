@@ -1,20 +1,83 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Tuxedo Cat Coffee</title>
+    <title>Receipt - Conestoga Condors Coffee</title>
     <link type="text/css" rel="stylesheet" href="cafe.css">
 </head>
+
 <body>
     <header>
-        <img src="images/logo.png" alt="Tuxedo Cat Coffee"/>
+        <img src="images/conestoga-condors-logo-white.png" alt="Conestoga Condors Coffee Logo" />
     </header>
+
     <main>
-        <form id="order_form" name="order_form" action="checkout.html" method="get">
-            <h1>Thank you!</h1>
-            <p>Thank you for visiting Tuxedo Cat Coffee.</p>   
+        <h1>Your Receipt</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th class="price">Price ($)</th>
+                </tr>
+            </thead>
+            <tbody id="receiptItems">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="receiptTotal"></td>
+                </tr>
+                <tr>
+                    <td>Tax (13%)</td>
+                    <td class="price" id="receiptTax"></td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td id="receiptTotalWithTax"></td>
+                </tr>
+            </tfoot>
+            <h2>Thank you!</h2>
+            <p>Thank you for visiting Conestoga Condors Coffee</p>   
             <br>
-            <a href="index.html">Place another order</a>
-        </form>
-    </main> 
+            <a href="index.html" id="place-another-order">Place Another Order</a>
+        </table>
+    </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get items and totals from localStorage
+        const receiptItems = JSON.parse(localStorage.getItem('orderItems')) || [];
+        const receiptTotal = parseFloat(localStorage.getItem('orderTotal')) || 0;
+
+        //Taxes and total calculations
+        const taxRate = 0.13;
+        const taxAmount = receiptTotal * taxRate;
+        const totalWithTax = receiptTotal + taxAmount;
+
+        // Sort items alphabetically by name
+        receiptItems.sort((a, b) => a.name.localeCompare(b.name));
+    
+        const receiptItemsContainer = document.getElementById('receiptItems');
+        receiptItems.forEach(item => {
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+            const priceCell = document.createElement('td');
+    
+            nameCell.textContent = item.name;
+            priceCell.textContent = `$${item.price.toFixed(2)}`;
+            priceCell.classList.add('price');
+    
+            row.appendChild(nameCell);
+            row.appendChild(priceCell);
+            receiptItemsContainer.appendChild(row);
+        });
+    
+        document.getElementById('receiptTotal').textContent = `$${receiptTotal.toFixed(2)}`;
+        document.getElementById('receiptTax').textContent = `$${taxAmount.toFixed(2)}`;
+        document.getElementById('receiptTotalWithTax').textContent = `$${totalWithTax.toFixed(2)}`;
+    });
+    
+</script>  
+    
 </body>
+
 </html>
