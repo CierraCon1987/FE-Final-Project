@@ -15,26 +15,26 @@ header {
 	border-bottom: 3px solid #af9467;
 }
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	text-align: center;
-}
-
-nav ul li {
+header ul li {
 	display: inline;
 	margin: 0 10px;
 }
 
-nav ul li a {
+header ul li a {
 	text-decoration: none;
 	font-weight: bold;
 	color: black;
 }
 
-nav ul li a:hover {
+header ul li a:hover {
 	color: brown;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
 }
 
 h1 {
