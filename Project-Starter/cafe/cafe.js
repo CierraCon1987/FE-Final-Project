@@ -43,26 +43,7 @@ $(document).ready(() => {
         }
     );
 
-    //Add cafe item to Order
-    /*$("#add_order").click(() => {
-        const textbox = $("#order");
-        const order = textbox.val();
-        if (order === "") {
-            alert("Please use the images above to create your order!");
-            textbox.focus();
-        } else {
-            let currentOrder = getCookieByName("order");
-            currentOrder = currentOrder.concat(order, "\n");
-            updateOrderCookie(currentOrder);
-
-            textbox.val("");
-            $("#order_list").val(getCookieByName("order"));
-            textbox.focus();
-        }
-    });
-
-//to add cafe item to order list
-/*document.addEventListener('DOMContentLoaded', function () {*/
+    //to add cafe item to order list
 
     let items = getLocalStorage('order') || [];
     let total = getLocalStorage('total') || 0;
@@ -109,6 +90,8 @@ $(document).ready(() => {
 
     //Place Order 
     $('#place_order').click(function () {
+        removeLocalStorage('order');
+        removeLocalStorage('total');
         window.location.href = 'checkout.html';
-    }); /* jquery part */
+    });
 }); 
