@@ -44,21 +44,24 @@ $(document).ready(() => {
     );
 
     //to add cafe item to order list
-
     let items = getLocalStorage('order') || [];
     let total = getLocalStorage('total') || 0;
 
     const orderList = document.getElementById('orderList');
     const orderTotal = document.getElementById('orderTotal');
     const menuList = document.getElementById('menuList');
+    const placeOrderButton = document.getElementById('place_order');
 
     //Show saved order - local storage
-
     if (items.length > 0) {
         orderList.value = items.join('\n');
         orderTotal.textContent = `Total: $${total.toFixed(2)}`;
+        placeOrderButton.disabled = false; //PLace order button disabled if nothing in order list
+    } else {
+        placeOrderButton.disabled = true;
     }
-
+    
+    //add cafe item to order list with name and price
     menuList.addEventListener('click', function (event) {
         if (event.target.tagName === 'IMG') {
 
@@ -73,6 +76,8 @@ $(document).ready(() => {
 
             setLocalStorage('order', items);
             setLocalStorage('total', total);
+
+            placeOrderButton.disabled = false;
         }
     });
 
@@ -86,12 +91,26 @@ $(document).ready(() => {
 
         removeLocalStorage('order');
         removeLocalStorage('total');
+
+        placeOrderButton.disabled = true;
     });
 
-    //Place Order 
-    $('#place_order').click(function () {
+    //Place Order Button and Checkout
+    $('#place_order').click(function (event) {
+
+        event.preventDefault();
+
+        if (items.length === 0) {
+            alert("Please add items to your order before placeing it.");
+        } else {
+            localStorage.setItem('orderItems',JSON.stringify(items.map(item =>{
+                const [name, price] = item.split(': $');
+                return { name,price: parseFloat(price) };
+            })));
+        localStorage.setItem('orderTotal', total.toFixed(2));
         removeLocalStorage('order');
         removeLocalStorage('total');
         window.location.href = 'checkout.html';
+        }
     });
 }); 
