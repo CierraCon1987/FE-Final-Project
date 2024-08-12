@@ -52,7 +52,7 @@ $(document).ready(() => {
     const orderTotal = document.getElementById('orderTotal');
     const menuList = document.getElementById('menuList');
 
-    //display saved order - local storage
+    //Show saved order - local storage
 
     if (items.length > 0) {
         orderList.value = items.join('\n');
