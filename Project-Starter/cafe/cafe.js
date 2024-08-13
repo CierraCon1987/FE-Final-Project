@@ -52,15 +52,24 @@ $(document).ready(() => {
     const menuList = document.getElementById('menuList');
     const placeOrderButton = document.getElementById('place_order');
 
+    //Place order button state
+    const updateButtonState = () => {
+        if (items.length > 0) {
+            placeOrderButton.disabled = false;
+            placeOrderButton.classList.remove('disabled');
+        } else {
+            placeOrderButton.disabled = true;
+            placeOrderButton.classList.add('disabled');
+        }
+    };
+
     //Show saved order - local storage
     if (items.length > 0) {
         orderList.value = items.join('\n');
         orderTotal.textContent = `Total: $${total.toFixed(2)}`;
-        placeOrderButton.disabled = false; //PLace order button disabled if nothing in order list
-    } else {
-        placeOrderButton.disabled = true;
     }
-    
+    updateButtonState();
+
     //add cafe item to order list with name and price
     menuList.addEventListener('click', function (event) {
         if (event.target.tagName === 'IMG') {
@@ -77,7 +86,7 @@ $(document).ready(() => {
             setLocalStorage('order', items);
             setLocalStorage('total', total);
 
-            placeOrderButton.disabled = false;
+            updateButtonState();
         }
     });
 
@@ -92,7 +101,7 @@ $(document).ready(() => {
         removeLocalStorage('order');
         removeLocalStorage('total');
 
-        placeOrderButton.disabled = true;
+        updateButtonState();
     });
 
     //Place Order Button and Checkout
@@ -105,10 +114,10 @@ $(document).ready(() => {
                 const [name, price] = item.split(': $');
                 return { name, price: parseFloat(price) };
             })));
-        localStorage.setItem('orderTotal', total.toFixed(2));
-        removeLocalStorage('order');
-        removeLocalStorage('total');
-        window.location.href = 'checkout.html';
+            localStorage.setItem('orderTotal', total.toFixed(2));
+            removeLocalStorage('order');
+            removeLocalStorage('total');
+            window.location.href = 'checkout.html';
         }
     });
 }); 
